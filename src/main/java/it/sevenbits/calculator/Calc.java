@@ -1,9 +1,10 @@
 package it.sevenbits.calculator;
 
+import it.sevenbits.calculator.operations.*;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 /**
@@ -11,7 +12,7 @@ import java.util.function.Supplier;
  * <a href='https://en.wikipedia.org/wiki/Reverse_Polish_notation'>wiki</a>
  */
 public class Calc {
-    private Map<String, BiFunction<Float, Float, Float>> operations;
+    private Map<String, Operation> operations;
     private Tokenizer tokenizer;
     private Supplier<Stack> stackBuilder;
 
@@ -19,10 +20,10 @@ public class Calc {
         this.tokenizer = tokenizer;
         this.stackBuilder = stackBuilder;
         operations = new HashMap<>();
-        operations.put("+", (left, right) -> left + right);
-        operations.put("*", (left, right) -> left * right);
-        operations.put("-", (left, right) -> right - left);
-        operations.put("/", (left, right) -> right / left);
+        operations.put("+", new AdditionOperation());
+        operations.put("*", new MultiplicationOperation());
+        operations.put("-", new SubtractionOperation());
+        operations.put("/", new DivisionOperation());
     }
 
     public float eval(String expression) {
