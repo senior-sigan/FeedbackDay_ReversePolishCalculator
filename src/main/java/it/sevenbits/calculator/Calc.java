@@ -1,10 +1,24 @@
 package it.sevenbits.calculator;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.BiFunction;
+
 /**
  * Reverse Polish notation calculator.
  * <a href='https://en.wikipedia.org/wiki/Reverse_Polish_notation'>wiki</a>
  */
 public class Calc {
+    private Map<String, BiFunction<Float, Float, Float>> operations;
+
+    public Calc() {
+        operations = new HashMap<>();
+        operations.put("+", (left, right) -> left + right);
+        operations.put("*", (left, right) -> left * right);
+        operations.put("-", (left, right) -> right - left);
+        operations.put("/", (left, right) -> right / left);
+    }
+
     public float eval(String expression) {
         if (expression == null || expression.isEmpty()) return 0f;
         String[] list = expression.split(" ");
@@ -13,25 +27,10 @@ public class Calc {
             if (isNumber(el)) {
                 numbers.push(Float.parseFloat(el));
             } else {
-                float n;
-                switch (el) {
-                    case "+":
-                        n = numbers.pop() + numbers.pop();
-                        numbers.push(n);
-                        break;
-                    case "-":
-                        n = -numbers.pop() + numbers.pop();
-                        numbers.push(n);
-                        break;
-                    case "*":
-                        n = numbers.pop() * numbers.pop();
-                        numbers.push(n);
-                        break;
-                    case "/":
-                        n = (1f / numbers.pop()) * numbers.pop();
-                        numbers.push(n);
-                        break;
-                }
+                numbers.push(operations.get(el).apply(
+                        numbers.pop(),
+                        numbers.pop()
+                ));
             }
         }
 
