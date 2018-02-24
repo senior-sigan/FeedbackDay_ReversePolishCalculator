@@ -1,6 +1,6 @@
 package it.sevenbits.calculator;
 
-import it.sevenbits.calculator.operations.*;
+import it.sevenbits.calculator.operations.Operation;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,14 +16,12 @@ public class Calc {
     private Tokenizer tokenizer;
     private Supplier<Stack> stackBuilder;
 
-    public Calc(Tokenizer tokenizer, Supplier<Stack> stackBuilder) {
+    public Calc(Tokenizer tokenizer, Supplier<Stack> stackBuilder, List<Operation> operations) {
         this.tokenizer = tokenizer;
         this.stackBuilder = stackBuilder;
-        operations = new HashMap<>();
-        operations.put("+", new AdditionOperation());
-        operations.put("*", new MultiplicationOperation());
-        operations.put("-", new SubtractionOperation());
-        operations.put("/", new DivisionOperation());
+        this.operations = new HashMap<>();
+        operations.forEach(operation ->
+                this.operations.put(operation.getSymbol(), operation));
     }
 
     public float eval(String expression) {
@@ -34,10 +32,12 @@ public class Calc {
             if (isNumber(token)) {
                 numbers.push(Float.parseFloat(token));
             } else {
-                numbers.push(operations.get(token).apply(
-                        numbers.pop(),
-                        numbers.pop()
-                ));
+                Operation op = operations.get(token);
+                float[] operands = new float[op.getArity()];
+                for (int i = 0; i < op.getArity(); i++) {
+                    operands[i] = numbers.pop();
+                }
+                numbers.push(op.apply(operands));
             }
         }
 
