@@ -3,5 +3,5 @@ package it.sevenbits.calculator;
 import java.util.List;
 
 public interface Tokenizer {
-    List<String> tokenize(String expression);
+    List<Token> tokenize(final List<String> atoms) throws TokenizerException;
 }

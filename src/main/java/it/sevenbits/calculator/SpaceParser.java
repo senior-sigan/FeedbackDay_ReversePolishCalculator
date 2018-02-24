@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class SpaceTokenizer implements Tokenizer {
+public class SpaceParser implements Parser {
     @Override
-    public List<String> tokenize(final String expression) {
+    public List<String> parse(final String expression) {
         if (expression == null || expression.trim().isEmpty()) return Collections.emptyList();
         String[] words = expression.trim().split(" ");
         return Arrays.asList(words);

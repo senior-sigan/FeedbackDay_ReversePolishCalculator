@@ -7,30 +7,30 @@ import java.util.List;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertTrue;
 
-public class SpaceTokenizerTest {
-    private final Tokenizer tokenizer = new SpaceTokenizer();
+public class SpaceParserTest {
+    private final Parser parser = new SpaceParser();
 
     @Test
     public void shouldSplitBySpace() {
-        List<String> tokens = tokenizer.tokenize("1 2 3 + * ");
+        List<String> tokens = parser.parse("1 2 3 + * ");
         assertArrayEquals(new String[]{"1", "2", "3", "+", "*"}, tokens.toArray());
     }
 
     @Test
     public void shouldReturnEmptyArrayWhenEmptyInput() {
-        List<String> tokens = tokenizer.tokenize("");
+        List<String> tokens = parser.parse("");
         assertTrue(tokens.isEmpty());
     }
 
     @Test
     public void shouldReturnEmptyArrayWhenNullInput() {
-        List<String> tokens = tokenizer.tokenize(null);
+        List<String> tokens = parser.parse(null);
         assertTrue(tokens.isEmpty());
     }
 
     @Test
     public void shouldReturnEmptyArrayWhenBlankInput() {
-        List<String> tokens = tokenizer.tokenize("        ");
+        List<String> tokens = parser.parse("        ");
         assertTrue(tokens.isEmpty());
     }
 }
