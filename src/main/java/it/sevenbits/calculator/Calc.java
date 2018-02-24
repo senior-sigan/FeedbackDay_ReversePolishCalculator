@@ -1,6 +1,7 @@
 package it.sevenbits.calculator;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
 
@@ -10,8 +11,10 @@ import java.util.function.BiFunction;
  */
 public class Calc {
     private Map<String, BiFunction<Float, Float, Float>> operations;
+    private Tokenizer tokenizer;
 
-    public Calc() {
+    public Calc(Tokenizer tokenizer) {
+        this.tokenizer = tokenizer;
         operations = new HashMap<>();
         operations.put("+", (left, right) -> left + right);
         operations.put("*", (left, right) -> left * right);
@@ -20,14 +23,14 @@ public class Calc {
     }
 
     public float eval(String expression) {
-        if (expression == null || expression.isEmpty()) return 0f;
-        String[] list = expression.split(" ");
+        List<String> tokens = tokenizer.tokenize(expression);
+        if (tokens == null || tokens.isEmpty()) return 0f;
         Stack numbers = new ArrayStack();
-        for (String el : list) {
-            if (isNumber(el)) {
-                numbers.push(Float.parseFloat(el));
+        for (String token : tokens) {
+            if (isNumber(token)) {
+                numbers.push(Float.parseFloat(token));
             } else {
-                numbers.push(operations.get(el).apply(
+                numbers.push(operations.get(token).apply(
                         numbers.pop(),
                         numbers.pop()
                 ));
