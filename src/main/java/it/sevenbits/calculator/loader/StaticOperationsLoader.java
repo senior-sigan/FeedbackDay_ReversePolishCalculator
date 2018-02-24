@@ -1,4 +1,4 @@
-package it.sevenbits.calculator;
+package it.sevenbits.calculator.loader;
 
 import it.sevenbits.calculator.operations.*;
 

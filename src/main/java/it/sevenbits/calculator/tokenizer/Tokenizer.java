@@ -1,4 +1,6 @@
-package it.sevenbits.calculator;
+package it.sevenbits.calculator.tokenizer;
+
+import it.sevenbits.calculator.tokens.Token;
 
 import java.util.List;
 

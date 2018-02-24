@@ -1,5 +1,7 @@
 package it.sevenbits.calculator;
 
+import it.sevenbits.calculator.parser.Parser;
+import it.sevenbits.calculator.parser.SpaceParser;
 import org.junit.Test;
 
 import java.util.List;

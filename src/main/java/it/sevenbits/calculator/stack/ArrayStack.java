@@ -1,4 +1,4 @@
-package it.sevenbits.calculator;
+package it.sevenbits.calculator.stack;
 
 import java.util.ArrayList;
 import java.util.List;

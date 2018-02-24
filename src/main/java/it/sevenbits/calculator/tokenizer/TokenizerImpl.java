@@ -1,5 +1,8 @@
-package it.sevenbits.calculator;
+package it.sevenbits.calculator.tokenizer;
 
+import it.sevenbits.calculator.tokens.FloatToken;
+import it.sevenbits.calculator.tokens.OperationToken;
+import it.sevenbits.calculator.tokens.Token;
 import it.sevenbits.calculator.operations.Operation;
 
 import java.util.ArrayList;

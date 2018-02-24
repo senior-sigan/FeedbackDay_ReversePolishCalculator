@@ -1,4 +1,6 @@
-package it.sevenbits.calculator;
+package it.sevenbits.calculator.tokens;
+
+import it.sevenbits.calculator.stack.Stack;
 
 public class FloatToken implements Token {
     private final float value;

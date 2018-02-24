@@ -1,5 +1,9 @@
 package it.sevenbits.calculator;
 
+import it.sevenbits.calculator.loader.StaticOperationsLoader;
+import it.sevenbits.calculator.parser.SpaceParser;
+import it.sevenbits.calculator.stack.ArrayStack;
+import it.sevenbits.calculator.tokenizer.TokenizerImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
