@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
+import java.util.function.Supplier;
 
 /**
  * Reverse Polish notation calculator.
@@ -12,9 +13,11 @@ import java.util.function.BiFunction;
 public class Calc {
     private Map<String, BiFunction<Float, Float, Float>> operations;
     private Tokenizer tokenizer;
+    private Supplier<Stack> stackBuilder;
 
-    public Calc(Tokenizer tokenizer) {
+    public Calc(Tokenizer tokenizer, Supplier<Stack> stackBuilder) {
         this.tokenizer = tokenizer;
+        this.stackBuilder = stackBuilder;
         operations = new HashMap<>();
         operations.put("+", (left, right) -> left + right);
         operations.put("*", (left, right) -> left * right);
@@ -25,7 +28,7 @@ public class Calc {
     public float eval(String expression) {
         List<String> tokens = tokenizer.tokenize(expression);
         if (tokens == null || tokens.isEmpty()) return 0f;
-        Stack numbers = new ArrayStack();
+        Stack numbers = stackBuilder.get();
         for (String token : tokens) {
             if (isNumber(token)) {
                 numbers.push(Float.parseFloat(token));

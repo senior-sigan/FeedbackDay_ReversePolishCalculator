@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class CalcTest {
-    private Calc calc = new Calc(new SpaceTokenizer());
+    private Calc calc = new Calc(new SpaceTokenizer(), ArrayStack::new);
     private float epsilon = 0.0001f;
 
     @Test
