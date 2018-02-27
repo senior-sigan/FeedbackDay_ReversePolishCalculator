@@ -1,7 +1,7 @@
 package it.sevenbits.calculator;
 
-import it.sevenbits.calculator.parser.Parser;
-import it.sevenbits.calculator.parser.SpaceParser;
+import it.sevenbits.calculator.tokenizer.Tokenizer;
+import it.sevenbits.calculator.tokenizer.SpaceTokenizer;
 import org.junit.Test;
 
 import java.util.List;
@@ -9,30 +9,30 @@ import java.util.List;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertTrue;
 
-public class SpaceParserTest {
-    private final Parser parser = new SpaceParser();
+public class SpaceTokenizerTest {
+    private final Tokenizer tokenizer = new SpaceTokenizer();
 
     @Test
     public void shouldSplitBySpace() {
-        List<String> tokens = parser.parse("1 2 3 + * ");
+        List<String> tokens = tokenizer.tokenize("1 2 3 + * ");
         assertArrayEquals(new String[]{"1", "2", "3", "+", "*"}, tokens.toArray());
     }
 
     @Test
     public void shouldReturnEmptyArrayWhenEmptyInput() {
-        List<String> tokens = parser.parse("");
+        List<String> tokens = tokenizer.tokenize("");
         assertTrue(tokens.isEmpty());
     }
 
     @Test
     public void shouldReturnEmptyArrayWhenNullInput() {
-        List<String> tokens = parser.parse(null);
+        List<String> tokens = tokenizer.tokenize(null);
         assertTrue(tokens.isEmpty());
     }
 
     @Test
     public void shouldReturnEmptyArrayWhenBlankInput() {
-        List<String> tokens = parser.parse("        ");
+        List<String> tokens = tokenizer.tokenize("        ");
         assertTrue(tokens.isEmpty());
     }
 }

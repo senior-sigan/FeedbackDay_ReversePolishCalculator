@@ -1,10 +1,10 @@
 package it.sevenbits.calculator;
 
-import it.sevenbits.calculator.parser.Parser;
+import it.sevenbits.calculator.nodes.Node;
+import it.sevenbits.calculator.parser.ParserException;
+import it.sevenbits.calculator.parser.ParserImpl;
 import it.sevenbits.calculator.stack.Stack;
-import it.sevenbits.calculator.tokenizer.TokenizerException;
-import it.sevenbits.calculator.tokenizer.TokenizerImpl;
-import it.sevenbits.calculator.tokens.Token;
+import it.sevenbits.calculator.tokenizer.Tokenizer;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -14,23 +14,23 @@ import java.util.function.Supplier;
  * <a href='https://en.wikipedia.org/wiki/Reverse_Polish_notation'>wiki</a>
  */
 public class Calc {
-    private Parser parser;
-    private TokenizerImpl tokenizer;
+    private Tokenizer tokenizer;
+    private ParserImpl parser;
     private Supplier<Stack> stackBuilder;
 
-    public Calc(Parser parser, TokenizerImpl tokenizer, Supplier<Stack> stackBuilder) {
+    public Calc(Tokenizer scanner, ParserImpl parser, Supplier<Stack> stackBuilder) {
+        this.tokenizer = scanner;
         this.parser = parser;
-        this.tokenizer = tokenizer;
         this.stackBuilder = stackBuilder;
     }
 
-    public float eval(String expression) throws TokenizerException {
-        List<String> atoms = parser.parse(expression);
-        List<Token> tokens = tokenizer.tokenize(atoms);
-        if (tokens == null || tokens.isEmpty()) return 0f;
+    public float eval(String expression) throws ParserException {
+        List<String> tokens = tokenizer.tokenize(expression);
+        List<Node> nodes = parser.parse(tokens);
+        if (nodes == null || nodes.isEmpty()) return 0f;
         Stack stack = stackBuilder.get();
-        for (Token token : tokens) {
-            token.act(stack);
+        for (Node node : nodes) {
+            node.act(stack);
         }
 
         return stack.pop();

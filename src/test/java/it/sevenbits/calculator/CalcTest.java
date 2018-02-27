@@ -1,17 +1,17 @@
 package it.sevenbits.calculator;
 
 import it.sevenbits.calculator.loader.StaticOperationsLoader;
-import it.sevenbits.calculator.parser.SpaceParser;
+import it.sevenbits.calculator.tokenizer.SpaceTokenizer;
 import it.sevenbits.calculator.stack.ArrayStack;
-import it.sevenbits.calculator.tokenizer.TokenizerImpl;
+import it.sevenbits.calculator.parser.ParserImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class CalcTest {
     private Calc calc = new Calc(
-            new SpaceParser(),
-            new TokenizerImpl(new StaticOperationsLoader().load()),
+            new SpaceTokenizer(),
+            new ParserImpl(new StaticOperationsLoader().load()),
             ArrayStack::new);
     private float epsilon = 0.0001f;
 

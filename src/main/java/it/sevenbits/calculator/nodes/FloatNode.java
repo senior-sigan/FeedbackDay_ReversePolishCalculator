@@ -1,11 +1,11 @@
-package it.sevenbits.calculator.tokens;
+package it.sevenbits.calculator.nodes;
 
 import it.sevenbits.calculator.stack.Stack;
 
-public class FloatToken implements Token {
+public class FloatNode implements Node {
     private final float value;
 
-    public FloatToken(float value) {
+    public FloatNode(float value) {
         this.value = value;
     }
 

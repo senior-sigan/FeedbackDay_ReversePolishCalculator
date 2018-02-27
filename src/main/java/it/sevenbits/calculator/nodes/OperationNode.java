@@ -1,12 +1,12 @@
-package it.sevenbits.calculator.tokens;
+package it.sevenbits.calculator.nodes;
 
 import it.sevenbits.calculator.operations.Operation;
 import it.sevenbits.calculator.stack.Stack;
 
-public class OperationToken implements Token {
+public class OperationNode implements Node {
     private final Operation operation;
 
-    public OperationToken(Operation operation) {
+    public OperationNode(Operation operation) {
         this.operation = operation;
     }
 
