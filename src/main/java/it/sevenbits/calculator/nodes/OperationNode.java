@@ -12,7 +12,7 @@ public class OperationNode implements Node {
 
     @Override
     public void act(final Stack stack) {
-        float[] operands = new float[operation.getArity()];
+        double[] operands = new double[operation.getArity()];
         for (int i = 0; i < operation.getArity(); i++) {
             operands[i] = stack.pop();
         }

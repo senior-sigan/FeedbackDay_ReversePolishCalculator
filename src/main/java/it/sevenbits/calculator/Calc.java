@@ -24,10 +24,10 @@ public class Calc {
         this.stackBuilder = stackBuilder;
     }
 
-    public float eval(String expression) throws ParserException {
+    public Double eval(String expression) throws ParserException {
         List<String> tokens = tokenizer.tokenize(expression);
         List<Node> nodes = parser.parse(tokens);
-        if (nodes == null || nodes.isEmpty()) return 0f;
+        if (nodes == null || nodes.isEmpty()) return 0.0;
         Stack stack = stackBuilder.get();
         for (Node node : nodes) {
             node.act(stack);

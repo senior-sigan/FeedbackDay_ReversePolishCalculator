@@ -7,7 +7,7 @@ public class DivisionOperation implements Operation {
     }
 
     @Override
-    public float apply(final float... operands) {
+    public double apply(double... operands) {
         return operands[1] / operands[0];
     }
 

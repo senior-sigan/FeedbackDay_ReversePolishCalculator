@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArrayStack implements Stack {
-    private List<Float> list = new ArrayList<>();
+    private List<Double> list = new ArrayList<>();
 
     @Override
-    public float pop() {
+    public double pop() {
         if (isEmpty()) throw new ArrayIndexOutOfBoundsException("Can't pop element: empty stack");
 
-        float last = list.get(list.size() - 1);
+        Double last = list.get(list.size() - 1);
         list.remove(list.size() - 1);
         return last;
     }
 
     @Override
-    public void push(final float n) {
+    public void push(final double n) {
         list.add(n);
     }
 

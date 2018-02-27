@@ -4,9 +4,9 @@ package it.sevenbits.calculator.stack;
  * FIFO data structure.
  */
 public interface Stack {
-    float pop();
+    double pop();
 
-    void push(float n);
+    void push(double n);
 
     boolean isEmpty();
 }

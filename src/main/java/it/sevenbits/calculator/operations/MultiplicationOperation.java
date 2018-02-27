@@ -7,7 +7,7 @@ public class MultiplicationOperation implements Operation {
     }
 
     @Override
-    public float apply(final float... operands) {
+    public double apply(double... operands) {
         return operands[0] * operands[1];
     }
 
