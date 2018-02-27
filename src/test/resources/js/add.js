@@ -2,8 +2,8 @@ function getSymbol() {
     return "+";
 }
 
-function apply(left, right) {
-    return left + right;
+function apply(operands) {
+    return operands[0] + operands[1];
 }
 
 function getArity() {

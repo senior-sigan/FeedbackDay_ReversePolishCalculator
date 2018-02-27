@@ -11,6 +11,7 @@ import javax.script.ScriptException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.lang.reflect.Proxy;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -47,34 +48,7 @@ public class DynamicJsOperationsLoader implements OperationsLoader {
         final ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
         engine.eval(new FileReader(path));
         final Invocable invocable = (Invocable) engine;
-        return new Operation() {
-            @Override
-            public String getSymbol() {
-                try {
-                    return (String) invocable.invokeFunction("getSymbol");
-                } catch (Exception e) {
-                    throw new RuntimeException("Can't invoke function 'getSymbol'", e);
-                }
-            }
-
-            @Override
-            public double apply(double... operands) {
-                try {
-                    Object[] operandsJs = Arrays.stream(operands).mapToObj(it -> (Object) it).toArray();
-                    return (double) invocable.invokeFunction("apply", operandsJs);
-                } catch (Exception e) {
-                    throw new RuntimeException("Can't invoke function 'getSymbol'", e);
-                }
-            }
-
-            @Override
-            public int getArity() {
-                try {
-                    return (int) invocable.invokeFunction("getArity");
-                } catch (Exception e) {
-                    throw new RuntimeException("Can't invoke function 'getSymbol'", e);
-                }
-            }
-        };
+        return (Operation) Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{Operation.class},
+                (proxy, method, args) -> invocable.invokeFunction(method.getName(), args));
     }
 }
