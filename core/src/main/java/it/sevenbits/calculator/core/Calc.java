@@ -1,8 +1,8 @@
 package it.sevenbits.calculator.core;
 
 import it.sevenbits.calculator.core.nodes.Node;
+import it.sevenbits.calculator.core.parser.Parser;
 import it.sevenbits.calculator.core.parser.ParserException;
-import it.sevenbits.calculator.core.parser.ParserImpl;
 import it.sevenbits.calculator.core.stack.Stack;
 import it.sevenbits.calculator.core.tokenizer.Tokenizer;
 
@@ -15,10 +15,10 @@ import java.util.function.Supplier;
  */
 public class Calc {
     private Tokenizer tokenizer;
-    private ParserImpl parser;
+    private Parser parser;
     private Supplier<Stack> stackBuilder;
 
-    public Calc(Tokenizer scanner, ParserImpl parser, Supplier<Stack> stackBuilder) {
+    public Calc(Tokenizer scanner, Parser parser, Supplier<Stack> stackBuilder) {
         this.tokenizer = scanner;
         this.parser = parser;
         this.stackBuilder = stackBuilder;
