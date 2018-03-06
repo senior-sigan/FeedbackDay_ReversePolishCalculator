@@ -1,2 +1,4 @@
 rootProject.name = 'calculator'
+include 'cli'
+include 'core'
 

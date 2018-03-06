@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="it.sevenbits.calculator.core.SpaceTokenizerTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2018-03-06T13:07:31" hostname="MacBook-Pro-Ila.local" time="0.01">
+  <properties/>
+  <testcase name="shouldReturnEmptyArrayWhenNullInput" classname="it.sevenbits.calculator.core.SpaceTokenizerTest" time="0.0"/>
+  <testcase name="shouldReturnEmptyArrayWhenEmptyInput" classname="it.sevenbits.calculator.core.SpaceTokenizerTest" time="0.001"/>
+  <testcase name="shouldReturnEmptyArrayWhenBlankInput" classname="it.sevenbits.calculator.core.SpaceTokenizerTest" time="0.001"/>
+  <testcase name="shouldSplitBySpace" classname="it.sevenbits.calculator.core.SpaceTokenizerTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

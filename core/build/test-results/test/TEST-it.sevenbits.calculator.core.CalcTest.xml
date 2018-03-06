@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="it.sevenbits.calculator.core.CalcTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2018-03-06T13:07:29" hostname="MacBook-Pro-Ila.local" time="0.037">
+  <properties/>
+  <testcase name="subtraction" classname="it.sevenbits.calculator.core.CalcTest" time="0.027"/>
+  <testcase name="addition" classname="it.sevenbits.calculator.core.CalcTest" time="0.001"/>
+  <testcase name="combination" classname="it.sevenbits.calculator.core.CalcTest" time="0.001"/>
+  <testcase name="noOp" classname="it.sevenbits.calculator.core.CalcTest" time="0.0"/>
+  <testcase name="empty" classname="it.sevenbits.calculator.core.CalcTest" time="0.001"/>
+  <testcase name="division" classname="it.sevenbits.calculator.core.CalcTest" time="0.001"/>
+  <testcase name="multiplication" classname="it.sevenbits.calculator.core.CalcTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

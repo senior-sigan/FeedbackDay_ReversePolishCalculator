@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="it.sevenbits.calculator.core.loader.DynamicGroovyOperationsLoaderTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-03-06T13:07:29" hostname="MacBook-Pro-Ila.local" time="1.054">
+  <properties/>
+  <testcase name="ShouldLoadScripts" classname="it.sevenbits.calculator.core.loader.DynamicGroovyOperationsLoaderTest" time="1.054"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
