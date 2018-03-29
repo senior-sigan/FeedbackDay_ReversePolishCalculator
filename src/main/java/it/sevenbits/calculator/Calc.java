@@ -1,51 +1,44 @@
 package it.sevenbits.calculator;
 
-import java.util.ArrayList;
-
 /**
  * Reverse Polish notation calculator.
  * <a href='https://en.wikipedia.org/wiki/Reverse_Polish_notation'>wiki</a>
  */
 public class Calc {
-    public float eval(String expression) {
+    public float eval(String expression) throws CalcException {
         if (expression == null || expression.isEmpty()) return 0f;
         String[] list = expression.split(" ");
-        ArrayList<Float> numbers = new ArrayList<>();
+        Stack numbers = new ArrayStack();
         for (String el : list) {
             if (isNumber(el)) {
-                numbers.add(Float.parseFloat(el));
+                numbers.push(Float.parseFloat(el));
             } else {
-                float n;
-                switch (el) {
-                    case "+":
-                        n = numbers.get(numbers.size() - 2) + numbers.get(numbers.size() - 1);
-                        numbers.remove(numbers.size() - 1);
-                        numbers.remove(numbers.size() - 1);
-                        numbers.add(n);
-                        break;
-                    case "-":
-                        n = numbers.get(numbers.size() - 2) - numbers.get(numbers.size() - 1);
-                        numbers.remove(numbers.size() - 1);
-                        numbers.remove(numbers.size() - 1);
-                        numbers.add(n);
-                        break;
-                    case "*":
-                        n = numbers.get(numbers.size() - 2) * numbers.get(numbers.size() - 1);
-                        numbers.remove(numbers.size() - 1);
-                        numbers.remove(numbers.size() - 1);
-                        numbers.add(n);
-                        break;
-                    case "/":
-                        n = numbers.get(numbers.size() - 2) / numbers.get(numbers.size() - 1);
-                        numbers.remove(numbers.size() - 1);
-                        numbers.remove(numbers.size() - 1);
-                        numbers.add(n);
-                        break;
+                try {
+                    switch (el) {
+                        case "+":
+                            numbers.push(numbers.pop() + numbers.pop());
+                            break;
+                        case "-":
+                            numbers.push(-numbers.pop() + numbers.pop());
+                            break;
+                        case "*":
+                            numbers.push(numbers.pop() * numbers.pop());
+                            break;
+                        case "/":
+                            numbers.push((1f / numbers.pop()) * numbers.pop());
+                            break;
+                    }
+                } catch (StackException e) {
+                    throw new CalcException("Can't eval expression: " + expression, e);
                 }
             }
         }
 
-        return numbers.get(numbers.size() - 1);
+        try {
+            return numbers.pop();
+        } catch (StackException e) {
+            throw new CalcException("Can't get calculation result", e);
+        }
     }
 
     private boolean isNumber(String s) {
