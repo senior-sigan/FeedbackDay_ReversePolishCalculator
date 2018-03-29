@@ -54,4 +54,9 @@ public class CalcTest {
         assertEquals(14f, calc.eval("5 1 2 + 4 * + 3 -"), epsilon);
         assertEquals(5f, calc.eval("15 7 1 1 + - / 3 * 2 1 1 + + -"), epsilon);
     }
+
+    @Test(expected = CalcException.class)
+    public void shouldThrowExceptionWhenUnknownOperation() throws CalcException {
+        calc.eval("1 2 3 ???");
+    }
 }

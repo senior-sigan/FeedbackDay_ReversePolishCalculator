@@ -1,10 +1,23 @@
 package it.sevenbits.calculator;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Reverse Polish notation calculator.
  * <a href='https://en.wikipedia.org/wiki/Reverse_Polish_notation'>wiki</a>
  */
 public class Calc {
+    private Map<String, Operation> operations;
+
+    public Calc() {
+        this.operations = new HashMap<>();
+        operations.put("+", (left, right) -> left + right);
+        operations.put("-", (left, right) -> right - left);
+        operations.put("*", (left, right) -> left * right);
+        operations.put("/", (left, right) -> right / left);
+    }
+
     public float eval(String expression) throws CalcException {
         if (expression == null || expression.isEmpty()) return 0f;
         String[] list = expression.split(" ");
@@ -14,20 +27,10 @@ public class Calc {
                 numbers.push(Float.parseFloat(el));
             } else {
                 try {
-                    switch (el) {
-                        case "+":
-                            numbers.push(numbers.pop() + numbers.pop());
-                            break;
-                        case "-":
-                            numbers.push(-numbers.pop() + numbers.pop());
-                            break;
-                        case "*":
-                            numbers.push(numbers.pop() * numbers.pop());
-                            break;
-                        case "/":
-                            numbers.push((1f / numbers.pop()) * numbers.pop());
-                            break;
-                    }
+                    Operation operation = operations.get(el);
+                    if (operation == null)
+                        throw new CalcException(String.format("Cannot eval expression '%s', unknown operation: '%s'", expression, el));
+                    numbers.push(operation.apply(numbers.pop(), numbers.pop()));
                 } catch (StackException e) {
                     throw new CalcException("Can't eval expression: " + expression, e);
                 }
