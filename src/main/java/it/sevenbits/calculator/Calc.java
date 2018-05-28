@@ -1,6 +1,7 @@
 package it.sevenbits.calculator;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -8,9 +9,11 @@ import java.util.Map;
  * <a href='https://en.wikipedia.org/wiki/Reverse_Polish_notation'>wiki</a>
  */
 public class Calc {
-    private Map<String, Operation> operations;
+    private final Map<String, Operation> operations;
+    private final Tokenizer tokenizer;
 
-    public Calc() {
+    public Calc(final Tokenizer tokenizer) {
+        this.tokenizer = tokenizer;
         this.operations = new HashMap<>();
         operations.put("+", (left, right) -> left + right);
         operations.put("-", (left, right) -> right - left);
@@ -19,17 +22,16 @@ public class Calc {
     }
 
     public float eval(String expression) throws CalcException {
-        if (expression == null || expression.isEmpty()) return 0f;
-        String[] list = expression.split(" ");
+        List<String> tokens = tokenizer.tokenize(expression);
         Stack numbers = new ArrayStack();
-        for (String el : list) {
-            if (isNumber(el)) {
-                numbers.push(Float.parseFloat(el));
+        for (String token : tokens) {
+            if (isNumber(token)) {
+                numbers.push(Float.parseFloat(token));
             } else {
                 try {
-                    Operation operation = operations.get(el);
+                    Operation operation = operations.get(token);
                     if (operation == null)
-                        throw new CalcException(String.format("Cannot eval expression '%s', unknown operation: '%s'", expression, el));
+                        throw new CalcException(String.format("Cannot eval expression '%s', unknown operation: '%s'", expression, token));
                     numbers.push(operation.apply(numbers.pop(), numbers.pop()));
                 } catch (StackException e) {
                     throw new CalcException("Can't eval expression: " + expression, e);
@@ -38,6 +40,7 @@ public class Calc {
         }
 
         try {
+            if (numbers.isEmpty()) return 0f;
             return numbers.pop();
         } catch (StackException e) {
             throw new CalcException("Can't get calculation result", e);
