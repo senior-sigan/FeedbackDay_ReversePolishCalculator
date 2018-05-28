@@ -3,6 +3,7 @@ package it.sevenbits.calculator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * Reverse Polish notation calculator.
@@ -11,19 +12,24 @@ import java.util.Map;
 public class Calc {
     private final Map<String, Operation> operations;
     private final Tokenizer tokenizer;
+    private final Supplier<Stack> stackBuilder;
 
-    public Calc(final Tokenizer tokenizer) {
+    public Calc(
+            final Tokenizer tokenizer,
+            final Supplier<Stack> stackBuilder,
+            final OperationsLoader loader
+    ) {
         this.tokenizer = tokenizer;
+        this.stackBuilder = stackBuilder;
         this.operations = new HashMap<>();
-        operations.put("+", (left, right) -> left + right);
-        operations.put("-", (left, right) -> right - left);
-        operations.put("*", (left, right) -> left * right);
-        operations.put("/", (left, right) -> right / left);
+        for (final Operation op : loader.load()) {
+            operations.put(op.getName(), op);
+        }
     }
 
     public float eval(String expression) throws CalcException {
         List<String> tokens = tokenizer.tokenize(expression);
-        Stack numbers = new ArrayStack();
+        Stack numbers = stackBuilder.get();
         for (String token : tokens) {
             if (isNumber(token)) {
                 numbers.push(Float.parseFloat(token));
